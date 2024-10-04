@@ -9,25 +9,20 @@
 
             do
             {
+                Console.WriteLine();
+                int exitCode = 0;
                 string[] file = File.ReadAllLines(path);
                 string checkedLine = "";
 
+                int size = string.Join("", LineToArray(file[0])).Length;
                 foreach (string line in file)
                 {
-                    checkedLine += string.Join(" ", LineToArray(line)) + " ";
+                    checkedLine += string.Join("", LineToArray(line));
+                    if (size != string.Join("", LineToArray(line)).Length)
+                    {
+                        exitCode = 1;
+                    }
                 }
-
-                Console.WriteLine(checkedLine);
-
-                int[] input = LineToArray(checkedLine);
-
-                for (int i = 0; i < input.Length; i++)
-                {
-
-                }
-
-                double a = 4.0;
-                Console.WriteLine(a/0 + " ");
 
                 Console.WriteLine("\nНажмите Q, чтобы завершить программу или любую другую кнопку для повторения");
                 key = Console.ReadKey();
@@ -36,19 +31,25 @@
 
         private static int[] LineToArray(string line)
         {
-            int count = 0;
-            string[] array = line.Split(" ");
-            int[] returnArray = new int[array.Length];
-            for (int i = 0; i < array.Length; i++)
+            // Отсеивание лишних элементов файла
+            string checkedLine = "";
+            foreach (string element in line.Split(" "))
             {
-                if (int.TryParse(array[i], out int num))
+                if (int.TryParse(element, out int result))
                 {
-                    returnArray[i] = num;
-                    count += 1;
+                    checkedLine += result;
                 }
             }
 
-            return returnArray[..count];
+            // Подготовка готового массива
+            int[] returnArray = new int[checkedLine.Split(" ").Length];
+            string[] array = checkedLine.Split("");
+            for (int i = 0; i < returnArray.Length; i++)
+            {
+                returnArray[i] = int.Parse(array[i]);
+            }
+
+            return returnArray;
         }
 
         // private static int CountComposition(int[] array)
