@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/home/nwtls/.nuget/packages/": {}
+    "/Users/mac/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/mydrivehdd/c# projects/cs-first-project/ConsoleApp1/ConsoleApp1.csproj",
+      "projectUniqueName": "/Users/mac/projects/c sharp projects/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "/mnt/mydrivehdd/c# projects/cs-first-project/ConsoleApp1/ConsoleApp1.csproj",
-      "packagesPath": "/home/nwtls/.nuget/packages/",
-      "outputPath": "/mnt/mydrivehdd/c# projects/cs-first-project/ConsoleApp1/obj/",
+      "projectPath": "/Users/mac/projects/c sharp projects/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj",
+      "packagesPath": "/Users/mac/.nuget/packages/",
+      "outputPath": "/Users/mac/projects/c sharp projects/ConsoleApp1/ConsoleApp1/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/nwtls/.nuget/NuGet/NuGet.Config"
+        "/Users/mac/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/nwtls/.dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
