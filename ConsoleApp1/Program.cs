@@ -10,6 +10,7 @@
             do
             {
                 Console.WriteLine();
+                // 0 или 1: 0 - ошибки не было, 1 - была
                 int exitCode = 0;
                 string[] file = File.ReadAllLines(path);
                 string checkedLine = "";
@@ -24,37 +25,64 @@
                     }
                 }
 
+                int[] input = LineToArray(checkedLine);
+                if (exitCode == 0)
+                {
+                    Console.WriteLine(CountComposition(input));
+                }
+
                 Console.WriteLine("\nНажмите Q, чтобы завершить программу или любую другую кнопку для повторения");
                 key = Console.ReadKey();
             } while (key.Key != ConsoleKey.Q);
         }
 
+        /**
+         * <summary>
+         * Приводит строку из input.txt к массиву типа int,
+         * исключая неверно введенные данные
+         * </summary>
+         * <param name="line">
+         * Строка для приведения из input.txt
+         * </param>
+         * <returns>
+         * Массив int[], содержащий отфильтрованный набор данных
+         * </returns>
+         */
         private static int[] LineToArray(string line)
         {
             // Отсеивание лишних элементов файла
             string checkedLine = "";
-            foreach (string element in line.Split(" "))
+            foreach (char element in line.ToCharArray())
             {
-                if (int.TryParse(element, out int result))
+                if (int.TryParse(element.ToString(), out int result))
                 {
                     checkedLine += result;
                 }
             }
 
             // Подготовка готового массива
-            int[] returnArray = new int[checkedLine.Split(" ").Length];
-            string[] array = checkedLine.Split("");
+            int[] returnArray = new int[checkedLine.ToCharArray().Length];
+            char[] array = checkedLine.ToCharArray();
             for (int i = 0; i < returnArray.Length; i++)
             {
-                returnArray[i] = int.Parse(array[i]);
+                returnArray[i] = array[i];
             }
 
             return returnArray;
         }
 
-        // private static int CountComposition(int[] array)
-        // {
-        //     return 0;
-        // }
+        private static int CountComposition(int[] array)
+        {
+            Console.WriteLine(string.Join(" ", array));
+            int n = array.Length / 2;
+            Console.WriteLine(n);
+            int sum = 0;
+            for (int i = 0; i < array.Length - n; i++)
+            {
+                sum += array[i] * array[i + n];
+            }
+
+            return sum;
+        }
     }
 }
