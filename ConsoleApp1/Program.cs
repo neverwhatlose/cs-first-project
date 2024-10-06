@@ -27,11 +27,13 @@ namespace ConsoleApp1;
                 {
                     string[] file = File.ReadAllLines(path + "input.txt");
 
-                    //Поскольку известно, что существует 2 строки, создается 2 массива
+                    if (file.Length == 0) throw new EmptyInputDataException("input.txt is empty!");
+
+                    // Поскольку известно, что существует 2 строки, создается 2 массива
                     int[] firstArray = LineToArray(file[0]);
                     int[] secondArray = LineToArray(file[1]);
 
-                    //Перевод результата (ответа) к строке для дальнейшего использования
+                    // Перевод результата (ответа) к строке для дальнейшего использования
                     string result = CountComposition(firstArray, secondArray).ToString();
                     WriteResult(path, result);
                     Console.WriteLine("Result has been succesfully written to output.txt");
@@ -49,6 +51,11 @@ namespace ConsoleApp1;
                 }
                 // см. документацию класса
                 catch (DifferentLengthException ex)
+                {
+                    Console.WriteLine(ex.GetMessage());
+                }
+                // см. документацию класса
+                catch (EmptyInputDataException ex)
                 {
                     Console.WriteLine(ex.GetMessage());
                 }
@@ -99,7 +106,7 @@ namespace ConsoleApp1;
                 // это просто некорректно введенное значение (не число)
                 else
                 {
-                    //Пропускаем пустые элементы
+                    // Пропускаем пустые элементы
                     if (element.Length == 0) continue;
                     
                     // Основой идеи проверки является ПРЕДПОЛОЖЕНИЕ, что пользователь
@@ -199,6 +206,21 @@ namespace ConsoleApp1;
         /// Сообщение исключения
         /// </param>
         private class WrongInputValueException(string message) : Exception
+        {
+            // Геттер на сообщение исключения
+            public string GetMessage()
+            {
+                return message;
+            }
+        }
+        
+        /// <summary>
+        /// Внутренний (локальный) класс-исключение, означающий отсутсвие входных данных в input.txt
+        /// </summary>
+        /// <param name="message">
+        /// Сообщение исключения
+        /// </param>
+        private class EmptyInputDataException(string message) : Exception
         {
             // Геттер на сообщение исключения
             public string GetMessage()
