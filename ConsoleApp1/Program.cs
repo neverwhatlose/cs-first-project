@@ -13,14 +13,14 @@ namespace ConsoleApp1;
         /// </summary>
         public static void Main()
         {
-            //Указание директории хранения input.txt и output.txt
+            // Указание директории хранения input.txt и output.txt
             string path = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().LastIndexOf("ConsoleApp1"));
-            //Переменная, используемая для хранения информации о нажатой кнопки
+            // Переменная, используемая для хранения информации о нажатой кнопки
             ConsoleKeyInfo key;
 
             do
             {
-                //Для более приятного отображения информации в консоль выводится пустая строка
+                // Для более приятного отображения информации в консоль выводится пустая строка
                 Console.WriteLine();
 
                 try
@@ -37,22 +37,22 @@ namespace ConsoleApp1;
                     Console.WriteLine("Result has been succesfully written to output.txt");
 
                 }
-                //Обработчик на случай, если input.txt отсутствует в path
+                // Обработчик на случай, если input.txt отсутствует в path
                 catch (FileNotFoundException)
                 {
                     Console.WriteLine("input.txt is missing!");
                 }
-                //см. документацию класса
+                // см. документацию класса
                 catch (WrongInputValueException ex)
                 {
                     Console.WriteLine(ex.GetMessage());
                 }
-                //см. документацию класса
+                // см. документацию класса
                 catch (DifferentLengthException ex)
                 {
                     Console.WriteLine(ex.GetMessage());
                 }
-                //Обработчик переполнения результирующей суммы
+                // Обработчик переполнения результирующей суммы
                 catch (OverflowException)
                 {
                     Console.WriteLine("Numeric value of result is too large, change input.txt");
@@ -60,7 +60,7 @@ namespace ConsoleApp1;
 
                 Console.WriteLine("\nPress Q to end the program or any other button to repeat");
                 key = Console.ReadKey();
-                //Программа будет работать до тех пор, пока пользователь не нажмет Q (q)
+                // Программа будет работать до тех пор, пока пользователь не нажмет Q (q)
             } while (key.Key != ConsoleKey.Q);
         }
 
@@ -81,12 +81,12 @@ namespace ConsoleApp1;
          */
         private static int[] LineToArray(string line)
         {
-            //Переменная для промежуточного хранения отфильтрованной строки
+            // Переменная для промежуточного хранения отфильтрованной строки
             string checkedLine = "";
-            //Переменная для хранения числовых значений превышающих максимальный размер int
+            // Переменная для хранения числовых значений превышающих максимальный размер int
             string wrongElements = "";
             
-            //Поочередная проверка введенных данных
+            // Поочередная проверка введенных данных
             foreach (string element in line.Split(" "))
             {
                 if (int.TryParse(element, out int result))
@@ -94,7 +94,7 @@ namespace ConsoleApp1;
                     checkedLine += result + " ";
                 }
                 
-                //Блок используется для определения того, чтобы понять
+                // Блок используется для определения того, чтобы понять
                 // числовое значение превышает максимально допустимое int-ом или
                 // это просто некорректно введенное значение (не число)
                 else
@@ -102,7 +102,7 @@ namespace ConsoleApp1;
                     //Пропускаем пустые элементы
                     if (element.Length == 0) continue;
                     
-                    //Основой идеи проверки является ПРЕДПОЛОЖЕНИЕ, что пользователь
+                    // Основой идеи проверки является ПРЕДПОЛОЖЕНИЕ, что пользователь
                     // ввел слишком большое число. Полная проверка элемента 
                     // нецелесообразна ввиду того, что это займет много ресурсов 
                     // (напомню, проверяется КАЖДЫЙ элемент введеных данных
@@ -115,17 +115,17 @@ namespace ConsoleApp1;
                 }
             }
             
-            //Проверка на то, что существуют неверные числовые значения
+            // Проверка на то, что существуют неверные числовые значения
             if (wrongElements.Length != 0)
                 throw new WrongInputValueException($"Provided element(s): {wrongElements}are incorrect! Numeric value of the entered data is too large or it is not a number!");
             
             string[] array = checkedLine.TrimEnd().Split(" ");
-            //Возвращаемый массив
+            // Возвращаемый массив
             int[] returnArray = new int[array.Length];
 
             for (int i = 0; i < returnArray.Length; i++)
             {
-                //Используется Parse, поскольку мы точно знаем, что остались
+                // Используется Parse, поскольку мы точно знаем, что остались
                 // корректные числа
                 returnArray[i] = int.Parse(array[i]);
             }
@@ -170,7 +170,7 @@ namespace ConsoleApp1;
             
             for (int i = 0; i < firstArr.Length; i++)
             {   
-                //Проверка на то, что результат не вызывает переполнения sum
+                // Проверка на то, что результат не вызывает переполнения sum
                 sum = checked(sum + firstArr[i] * secondArr[i]);
             }
 
@@ -185,7 +185,7 @@ namespace ConsoleApp1;
         /// </param>
         private class DifferentLengthException(string message) : Exception
         {
-            //Геттер на сообщение исключения
+            // Геттер на сообщение исключения
             public string GetMessage()
             {
                 return message;
@@ -200,7 +200,7 @@ namespace ConsoleApp1;
         /// </param>
         private class WrongInputValueException(string message) : Exception
         {
-            //Геттер на сообщение исключения
+            // Геттер на сообщение исключения
             public string GetMessage()
             {
                 return message;
